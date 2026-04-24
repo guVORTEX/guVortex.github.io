@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Qichen — Product Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #FAF7F2;
+      --cream-dark: #F0EBE1;
+      --warm-brown: #7C5C3E;
+      --soft-terra: #C98B6B;
+      --terra-light: #EDD9C8;
+      --text-dark: #2C1F13;
+      --text-mid: #6B5040;
+      --text-muted: #A08060;
+      --accent-green: #6B8F6B;
+      --accent-green-light: #D6E8D6;
+      --white: #FFFFFF;
+      --border: rgba(124,92,62,0.15);
+      --border-strong: rgba(124,92,62,0.28);
+      --nav-h: 64px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    /* ——— NAV ——— */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--nav-h);
+      background: rgba(250,247,242,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+    }
+    .nav-logo {
+      font-family: 'Lora', serif;
+      font-size: 1.25rem;
+      color: var(--text-dark);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-mid);
+      font-size: 0.9rem;
+      font-weight: 400;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--warm-brown); }
+
+    /* ——— SECTIONS ——— */
+    section { padding: 5rem 5%; }
+    .container { max-width: 960px; margin: 0 auto; }
+
+    /* ——— HERO ——— */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding-top: calc(var(--nav-h) + 4rem);
+      background:
+        radial-gradient(ellipse 60% 50% at 80% 40%, var(--terra-light) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 10% 80%, var(--accent-green-light) 0%, transparent 60%),
+        var(--cream);
+    }
+    .hero-inner {
+      max-width: 960px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: var(--terra-light);
+      color: var(--warm-brown);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.85rem;
+      border-radius: 100px;
+      margin-bottom: 1.25rem;
+    }
+    .hero-name {
+      font-family: 'Lora', serif;
+      font-size: clamp(2.8rem, 5vw, 4rem);
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--text-dark);
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+    }
+    .hero-name em { color: var(--soft-terra); font-style: italic; }
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--text-mid);
+      line-height: 1.75;
+      max-width: 420px;
+      margin-bottom: 2rem;
+    }
+    .btn-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-block;
+      background: var(--warm-brown);
+      color: var(--cream);
+      padding: 0.75rem 1.75rem;
+      border-radius: 100px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--text-dark); transform: translateY(-1px); }
+    .btn-ghost {
+      display: inline-block;
+      border: 1.5px solid var(--border-strong);
+      color: var(--text-mid);
+      padding: 0.75rem 1.75rem;
+      border-radius: 100px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--warm-brown); color: var(--warm-brown); }
+
+    /* Hero illustration placeholder */
+    .hero-art {
+      display: flex; justify-content: center; align-items: center;
+    }
+    .hero-blob {
+      width: 320px; height: 320px;
+      background: linear-gradient(135deg, var(--terra-light) 0%, var(--accent-green-light) 100%);
+      border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      animation: blobmorph 8s ease-in-out infinite;
+    }
+    @keyframes blobmorph {
+      0%, 100% { border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%; }
+      33%       { border-radius: 40% 60% 40% 60% / 60% 40% 60% 40%; }
+      66%       { border-radius: 55% 45% 60% 40% / 40% 55% 45% 60%; }
+    }
+    .hero-initials {
+      font-family: 'Lora', serif;
+      font-size: 4rem;
+      color: var(--warm-brown);
+      opacity: 0.55;
+      user-select: none;
+    }
+    /* Floating chips */
+    .chip {
+      position: absolute;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.45rem 0.9rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-mid);
+      white-space: nowrap;
+      box-shadow: 0 2px 12px rgba(124,92,62,0.08);
+    }
+    .chip-1 { top: 30px; right: -30px; animation: float 4s ease-in-out infinite; }
+    .chip-2 { bottom: 50px; left: -40px; animation: float 5s ease-in-out infinite 1s; }
+    .chip-3 { top: 55%; right: -45px; animation: float 4.5s ease-in-out infinite 0.5s; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-8px); }
+    }
+
+    /* ——— ABOUT ——— */
+    #about { background: var(--white); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: start;
+    }
+    .about-label {
+      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .about-portrait {
+      width: 100%; aspect-ratio: 3/4;
+      background: var(--cream-dark);
+      border-radius: 24px;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .portrait-placeholder {
+      font-family: 'Lora', serif;
+      font-size: 5rem;
+      color: var(--soft-terra);
+      opacity: 0.4;
+    }
+    .portrait-note {
+      position: absolute; bottom: 1rem; left: 0; right: 0; text-align: center;
+      font-size: 0.7rem; color: var(--text-muted);
+    }
+    .about-text h2 {
+      font-family: 'Lora', serif;
+      font-size: 2rem; font-weight: 400;
+      line-height: 1.3; color: var(--text-dark);
+      margin-bottom: 1.25rem;
+    }
+    .about-text p { color: var(--text-mid); margin-bottom: 1rem; line-height: 1.8; }
+    .skills-row {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      margin-top: 1.75rem;
+    }
+    .skill-pill {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 0.3rem 0.9rem;
+      font-size: 0.82rem;
+      color: var(--text-mid);
+    }
+
+    /* ——— WORK / CASE STUDY ——— */
+    #work { background: var(--cream); }
+    .section-header { margin-bottom: 3rem; }
+    .section-header h2 {
+      font-family: 'Lora', serif;
+      font-size: 2.2rem; font-weight: 400;
+      color: var(--text-dark); margin-bottom: 0.5rem;
+    }
+    .section-header p { color: var(--text-muted); font-size: 0.95rem; }
+
+    .case-hero-card {
+      background: var(--white);
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      margin-bottom: 2.5rem;
+    }
+    .case-banner {
+      height: 240px;
+      background: linear-gradient(135deg, #F5D9C0 0%, #D6E8D6 50%, #EDD9C8 100%);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .case-banner-text {
+      font-family: 'Lora', serif;
+      font-size: 3.5rem;
+      color: var(--warm-brown);
+      opacity: 0.25;
+      letter-spacing: -0.04em;
+    }
+    .case-logo-badge {
+      position: absolute;
+      background: var(--white);
+      border-radius: 16px;
+      padding: 1rem 1.75rem;
+      box-shadow: 0 4px 24px rgba(124,92,62,0.15);
+      font-family: 'Lora', serif;
+      font-size: 1.6rem;
+      color: var(--soft-terra);
+      font-weight: 500;
+    }
+    .case-body { padding: 2.5rem; }
+    .case-meta {
+      display: flex; gap: 1.5rem; flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .case-tag {
+      background: var(--terra-light);
+      color: var(--warm-brown);
+      border-radius: 100px;
+      padding: 0.3rem 0.85rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+    }
+    .case-tag.green {
+      background: var(--accent-green-light);
+      color: var(--accent-green);
+    }
+    .case-body h3 {
+      font-family: 'Lora', serif;
+      font-size: 1.5rem; font-weight: 400;
+      color: var(--text-dark); margin-bottom: 0.75rem;
+    }
+    .case-body p { color: var(--text-mid); margin-bottom: 1.25rem; line-height: 1.8; }
+
+    /* Process steps */
+    .process-steps {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem; margin: 2rem 0;
+    }
+    .process-step {
+      background: var(--cream);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 1.25rem;
+    }
+    .step-num {
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em;
+      color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem;
+    }
+    .step-title {
+      font-family: 'Lora', serif;
+      font-size: 1rem; font-weight: 400;
+      color: var(--text-dark); margin-bottom: 0.4rem;
+    }
+    .step-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* Insight callout */
+    .insight-box {
+      background: var(--cream-dark);
+      border-left: 3px solid var(--soft-terra);
+      border-radius: 0 12px 12px 0;
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .insight-box p {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      color: var(--warm-brown);
+      font-size: 1.05rem;
+      margin: 0;
+    }
+
+    /* Screens grid */
+    .screens-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.5rem 0;
+    }
+    .screen-card {
+      aspect-ratio: 3/4;
+      background: var(--cream-dark);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 0.5rem; cursor: default;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .screen-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 28px rgba(124,92,62,0.12);
+    }
+    .screen-icon { font-size: 1.5rem; }
+    .screen-label { font-size: 0.75rem; color: var(--text-muted); text-align: center; }
+
+    .divider {
+      border: none; border-top: 1px solid var(--border);
+      margin: 2rem 0;
+    }
+
+    /* Outcome stats */
+    .outcomes-row {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.5rem 0;
+    }
+    .outcome-card {
+      background: var(--cream);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 1.25rem;
+      text-align: center;
+    }
+    .outcome-num {
+      font-family: 'Lora', serif;
+      font-size: 2rem; font-weight: 500;
+      color: var(--soft-terra);
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+    .outcome-label { font-size: 0.8rem; color: var(--text-muted); }
+
+    /* ——— ABOUT BEHAVIORAL ECON ——— */
+    #interests { background: var(--white); }
+    .interests-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem;
+    }
+    .interest-card {
+      background: var(--cream);
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      padding: 1.75rem;
+      transition: transform 0.2s;
+    }
+    .interest-card:hover { transform: translateY(-3px); }
+    .interest-icon {
+      width: 44px; height: 44px;
+      background: var(--terra-light);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .interest-card h3 {
+      font-family: 'Lora', serif;
+      font-size: 1.05rem; font-weight: 400;
+      color: var(--text-dark);
+      margin-bottom: 0.5rem;
+    }
+    .interest-card p { font-size: 0.87rem; color: var(--text-muted); line-height: 1.65; }
+
+    /* ——— CONTACT ——— */
+    #contact {
+      background: var(--text-dark);
+      color: var(--cream);
+    }
+    #contact .container { text-align: center; }
+    #contact h2 {
+      font-family: 'Lora', serif;
+      font-size: 2.5rem; font-weight: 400;
+      color: var(--cream);
+      margin-bottom: 0.75rem;
+    }
+    #contact p { color: rgba(250,247,242,0.6); margin-bottom: 2.5rem; }
+    .contact-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .contact-link {
+      display: inline-block;
+      background: rgba(250,247,242,0.1);
+      border: 1px solid rgba(250,247,242,0.2);
+      color: var(--cream);
+      padding: 0.75rem 1.75rem;
+      border-radius: 100px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+    .contact-link:hover { background: rgba(250,247,242,0.18); }
+    .contact-link.primary {
+      background: var(--soft-terra);
+      border-color: var(--soft-terra);
+    }
+    .contact-link.primary:hover { background: #b8785a; border-color: #b8785a; }
+
+    /* ——— FOOTER ——— */
+    footer {
+      background: var(--text-dark);
+      border-top: 1px solid rgba(250,247,242,0.08);
+      padding: 1.5rem 5%;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    footer p { font-size: 0.8rem; color: rgba(250,247,242,0.3); }
+
+    /* ——— FADE IN ANIMATION ——— */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ——— RESPONSIVE ——— */
+    @media (max-width: 720px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-art { display: none; }
+      .about-grid { grid-template-columns: 1fr; }
+      .screens-grid { grid-template-columns: repeat(2, 1fr); }
+      .outcomes-row { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">Qichen</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#interests">Interests</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-inner container">
+      <div class="fade-up">
+        <span class="hero-tag">Product Designer</span>
+        <h1 class="hero-name">Hi, I'm<br><em>Qichen</em></h1>
+        <p class="hero-desc">
+          I design products at the intersection of human behavior and technology —
+          turning research insights into experiences that feel intuitive and honest.
+        </p>
+        <div class="btn-row">
+          <a href="#work" class="btn-primary">See my work</a>
+          <a href="#contact" class="btn-ghost">Get in touch</a>
+        </div>
+      </div>
+      <div class="hero-art fade-up" style="transition-delay: 0.2s;">
+        <div class="hero-blob" style="position: relative;">
+          <div class="hero-initials">Q</div>
+          <div class="chip chip-1">🎓 Northeastern</div>
+          <div class="chip chip-2">🧠 Behavioral Econ</div>
+          <div class="chip chip-3">🎨 Product Design</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container about-grid">
+      <div class="fade-up">
+        <p class="about-label">About me</p>
+        <div class="about-portrait">
+          <div class="portrait-placeholder">✦</div>
+          <!-- 
+            REPLACE THIS WITH YOUR PHOTO:
+            <img src="your-photo.jpg" alt="Qichen" style="width:100%;height:100%;object-fit:cover;" />
+          -->
+          <p class="portrait-note">Add your photo here</p>
+        </div>
+      </div>
+      <div class="fade-up" style="transition-delay: 0.15s;">
+        <p class="about-label">Who I am</p>
+        <h2>Designer who thinks<br>like a behavioral economist</h2>
+        <p>
+          I'm a student at Northeastern University studying at the crossroads of
+          product design and behavioral economics. I believe great design isn't just
+          beautiful — it understands how people actually make decisions.
+        </p>
+        <p>
+          My work spans UX research, interaction design, and product strategy.
+          I'm drawn to problems where human psychology and technology intersect,
+          and I bring academic rigor to every design challenge.
+        </p>
+        <p>
+          <!-- ✏️ EDIT: Add a sentence or two about yourself — hobbies, background, goals, etc. -->
+          Outside of design, I enjoy [your interests here].
+        </p>
+        <div class="skills-row">
+          <span class="skill-pill">UX Research</span>
+          <span class="skill-pill">Prototyping</span>
+          <span class="skill-pill">Figma</span>
+          <span class="skill-pill">Behavioral Economics</span>
+          <span class="skill-pill">User Interviews</span>
+          <span class="skill-pill">Product Strategy</span>
+          <span class="skill-pill">Lo-fi / Hi-fi Design</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK — CASE STUDY -->
+  <section id="work">
+    <div class="container">
+      <div class="section-header fade-up">
+        <p class="about-label">Case Study</p>
+        <h2>Orange — B2B EdTech Platform</h2>
+        <p>A social-academic tool designed to connect students and universities.</p>
+      </div>
+
+      <div class="case-hero-card fade-up">
+        <div class="case-banner">
+          <div class="case-banner-text">ORANGE</div>
+          <div class="case-logo-badge">🍊 Orange</div>
+        </div>
+        <div class="case-body">
+          <div class="case-meta">
+            <span class="case-tag">EdTech</span>
+            <span class="case-tag">B2B Platform</span>
+            <span class="case-tag green">Social-Academic</span>
+            <span class="case-tag green">University Partnerships</span>
+          </div>
+
+          <h3>The Challenge</h3>
+          <p>
+            Universities struggle to help students build meaningful academic networks and
+            maintain engagement beyond the classroom. Existing tools are either too
+            transactional (LMS) or too social (Instagram) — there's a gap for something in between.
+            Orange set out to bridge that space by creating a structured yet human platform
+            for academic community-building.
+          </p>
+          <!-- ✏️ EDIT: Replace with your actual problem statement from your project brief -->
+
+          <hr class="divider" />
+
+          <h3>Design Process</h3>
+          <div class="process-steps">
+            <div class="process-step">
+              <div class="step-num">Phase 01</div>
+              <div class="step-title">Needfinding</div>
+              <div class="step-desc">
+                Conducted interviews with students and university administrators to surface
+                pain points around academic networking and peer discovery.
+              </div>
+            </div>
+            <div class="process-step">
+              <div class="step-num">Phase 02</div>
+              <div class="step-title">Lo-fi Prototyping</div>
+              <div class="step-desc">
+                Sketched paper wireframes and low-fidelity Figma screens to explore
+                core user flows before committing to visual design.
+              </div>
+            </div>
+            <div class="process-step">
+              <div class="step-num">Phase 03</div>
+              <div class="step-title">User Testing</div>
+              <div class="step-desc">
+                Ran usability tests on lo-fi prototypes, gathering qualitative feedback
+                to validate or challenge our design assumptions.
+              </div>
+            </div>
+            <div class="process-step">
+              <div class="step-num">Phase 04</div>
+              <div class="step-title">Hi-fi Design</div>
+              <div class="step-desc">
+                Refined the visual language and built a high-fidelity interactive
+                prototype, addressing findings from user research.
+              </div>
+            </div>
+          </div>
+          <!-- ✏️ EDIT: Update each phase description with your actual process steps -->
+
+          <div class="insight-box">
+            <p>
+              "Students don't want another app — they want fewer barriers to the right people.
+              The design challenge was making discovery feel effortless, not algorithmic."
+            </p>
+          </div>
+          <!-- ✏️ EDIT: Replace with a real insight from your needfinding interviews -->
+
+          <h3>Key Research Findings</h3>
+          <p>
+            Through interviews and observation, we identified three core themes: students felt
+            invisible in large cohorts, professors lacked lightweight ways to facilitate peer
+            connections, and existing tools required too much friction to form study groups or
+            project teams. These shaped every subsequent design decision.
+          </p>
+          <!-- ✏️ EDIT: Replace with your actual research findings -->
+
+          <h3>Design Screens</h3>
+          <div class="screens-grid">
+            <div class="screen-card">
+              <div class="screen-icon">🏠</div>
+              <div class="screen-label">Home Feed</div>
+            </div>
+            <div class="screen-card">
+              <div class="screen-icon">🔍</div>
+              <div class="screen-label">Discover</div>
+            </div>
+            <div class="screen-card">
+              <div class="screen-icon">👤</div>
+              <div class="screen-label">Profile</div>
+            </div>
+            <div class="screen-card">
+              <div class="screen-icon">💬</div>
+              <div class="screen-label">Messaging</div>
+            </div>
+            <div class="screen-card">
+              <div class="screen-icon">📋</div>
+              <div class="screen-label">Project Board</div>
+            </div>
+            <div class="screen-card">
+              <div class="screen-icon">🏫</div>
+              <div class="screen-label">University Dashboard</div>
+            </div>
+          </div>
+          <!-- ✏️ REPLACE: Add your actual screenshots as <img> tags inside the screen-card divs -->
+
+          <hr class="divider" />
+
+          <h3>Improvements from User Testing</h3>
+          <p>
+            Early testing revealed that the onboarding flow overwhelmed new users. We simplified
+            the signup from 7 steps to 3, added contextual tooltips, and redesigned the empty
+            states to guide users toward their first meaningful interaction. Navigation was also
+            restructured based on confusion around the tab hierarchy.
+          </p>
+          <!-- ✏️ EDIT: Describe your actual iteration and improvement directions -->
+
+          <h3>Outcomes & Reflections</h3>
+          <div class="outcomes-row">
+            <div class="outcome-card">
+              <div class="outcome-num">3</div>
+              <div class="outcome-label">Rounds of user testing</div>
+            </div>
+            <div class="outcome-card">
+              <div class="outcome-num">↑ SUS</div>
+              <div class="outcome-label">Usability score improved</div>
+            </div>
+            <div class="outcome-card">
+              <div class="outcome-num">2</div>
+              <div class="outcome-label">University stakeholders pitched</div>
+            </div>
+          </div>
+          <!-- ✏️ EDIT: Replace with real metrics from your project -->
+
+          <p>
+            This project deepened my appreciation for the tension between institutional
+            needs (admin dashboards, analytics) and student experience. A B2B EdTech tool
+            has two very different users — the buyer and the end user — and designing for
+            both requires constant negotiation.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERESTS -->
+  <section id="interests">
+    <div class="container">
+      <div class="section-header fade-up">
+        <p class="about-label">What I care about</p>
+        <h2>Interests & Influences</h2>
+      </div>
+      <div class="interests-grid">
+        <div class="interest-card fade-up">
+          <div class="interest-icon">🧠</div>
+          <h3>Behavioral Economics</h3>
+          <p>Exploring how cognitive biases, social preferences, and decision heuristics
+          shape human behavior — and how design can work with them, not against them.</p>
+        </div>
+        <div class="interest-card fade-up" style="transition-delay: 0.1s;">
+          <div class="interest-icon">🎨</div>
+          <h3>Product Design</h3>
+          <p>From needfinding to pixel-pushing, I'm fascinated by the full arc of
+          turning a messy human problem into a clear, usable experience.</p>
+        </div>
+        <div class="interest-card fade-up" style="transition-delay: 0.2s;">
+          <div class="interest-icon">📚</div>
+          <h3>EdTech & Learning</h3>
+          <p>How do people learn, connect, and grow in institutional settings?
+          I'm drawn to designing for environments where the stakes are real
+          and the users are often underserved.</p>
+        </div>
+        <div class="interest-card fade-up" style="transition-delay: 0.3s;">
+          <div class="interest-icon">🌱</div>
+          <h3>[Your interest]</h3>
+          <p><!-- ✏️ EDIT: Add one of your real personal interests or passions here. 
+          Anything from a hobby to a topic you can't stop reading about. --></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <h2>Let's work together</h2>
+      <p>Open to internships, collaborations, and good conversations about design.</p>
+      <div class="contact-links">
+        <a href="mailto:your@email.com" class="contact-link primary">✉️ Email me</a>
+        <a href="https://linkedin.com/in/yourname" target="_blank" class="contact-link">LinkedIn</a>
+        <a href="https://github.com/yourname" target="_blank" class="contact-link">GitHub</a>
+        <!-- ✏️ EDIT: Update the href values above with your real email, LinkedIn URL, etc. -->
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Qichen. Built with care.</p>
+    <p style="font-size:0.75rem; color: rgba(250,247,242,0.2);">
+      <!-- ✏️ EDIT: After deployment, add your site URL here -->
+    </p>
+  </footer>
+
+  <script>
+    // Fade-in on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
